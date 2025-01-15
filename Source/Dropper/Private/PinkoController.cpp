@@ -13,15 +13,22 @@ void APinkoController::SetupInputComponent()
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 
 	Subsystem->ClearAllMappings();
-	Subsystem->AddMappingContext(DefaultMappingContext, 0);
+
+	if (!InputMap)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("INPUT MAP MISSING IN CHARACTER CONTROLLER, OPEN THE CHARACTER CONTROLLER AND ASSIGN THE INPUT MAP!!!"));
+		return;
+	}
+
+	Subsystem->AddMappingContext(InputMap->MappingContext, 0);
 
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 
-	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APinkoController::Move);
-	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APinkoController::Look);
-	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &APinkoController::Jump);
-	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &APinkoController::StartSprint);
-	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &APinkoController::EndSprint);
+	EnhancedInputComponent->BindAction(InputMap->Actions["Move"], ETriggerEvent::Triggered, this, &APinkoController::Move);
+	EnhancedInputComponent->BindAction(InputMap->Actions["Look"], ETriggerEvent::Triggered, this, &APinkoController::Look);
+	EnhancedInputComponent->BindAction(InputMap->Actions["Jump"], ETriggerEvent::Started, this, &APinkoController::Jump);
+	EnhancedInputComponent->BindAction(InputMap->Actions["Sprint"], ETriggerEvent::Started, this, &APinkoController::StartSprint);
+	EnhancedInputComponent->BindAction(InputMap->Actions["Sprint"], ETriggerEvent::Completed, this, &APinkoController::EndSprint);
 }
 
 void APinkoController::OnPossess(APawn* InPawn)

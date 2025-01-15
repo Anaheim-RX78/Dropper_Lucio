@@ -3,7 +3,10 @@
 
 #include "Pinko.h"
 
+#include "DropperGameInstance.h"
+#include "Chaos/DebugDrawQueue.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APinko::APinko()
@@ -22,6 +25,19 @@ APinko::APinko()
 void APinko::BeginPlay()
 {
 	Super::BeginPlay();
+	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	UDropperGameInstance* DropperGameInstance = GetGameInstance<UDropperGameInstance>();
+	
+	if (!DropperGameInstance)
+	{
+		return;
+	}
+
+	UCapsuleComponent* Capsule = GetCapsuleComponent();
+	if (!Capsule) return;
+
+	
+
 }
 
 void APinko::Tick(float DeltaTime)
@@ -53,5 +69,17 @@ void APinko::StartSprinting()
 
 void APinko::StopSprinting()
 {
-	GetCharacterMovement()->MaxWalkSpeed = 200.f;
+	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+}
+
+void APinko::AddCoin()
+{
+	UDropperGameInstance* DropperGameInstance = GetGameInstance<UDropperGameInstance>();
+	
+	if (!DropperGameInstance)
+	{
+		return;
+	}
+
+	DropperGameInstance->SetCoinCollected();
 }

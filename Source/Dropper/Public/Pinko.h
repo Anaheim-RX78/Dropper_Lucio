@@ -38,11 +38,16 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	bool IsSprinting = false;
+
+
+	
 	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	
+	void AddCoin();
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -53,4 +58,3 @@ public:
 	void StopSprinting();
 
 };
-

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "InputMap.h"
 #include "Pinko.h"
 #include "GameFramework/PlayerController.h"
 #include "PinkoController.generated.h"
@@ -37,6 +38,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SprintAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputMap* InputMap;
+	
 	virtual void SetupInputComponent() override;
 	virtual void OnPossess(APawn* InPawn) override;
 
