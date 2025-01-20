@@ -16,7 +16,14 @@ void UInventory::AddItem(AInventoryItemActor* Item, int Amount)
 
 void UInventory::AddItem(UInventoryItemData* Item, int Amount)
 {
-	Items.Add({Amount, Item});
+	if (FInventorySlot* Slot = GetSlotByData(Item))
+	{
+		Slot->Amount += Amount;
+	}
+	else
+	{
+		Items.Add({Amount, Item});
+	}
 }
 
 void UInventory::DropItem(int index, int Amount, FVector DropLocation)
@@ -56,7 +63,7 @@ FString UInventory::SetNextSlot()
 		CurrentItemIndex++;
 	}
 
-	return Items[CurrentItemIndex].ItemData->Description; 
+	return Items[CurrentItemIndex].ItemData->PrettyName; 
 }
 
 void UInventory::DropCurrentItem(int Amount, FVector DropLocation)

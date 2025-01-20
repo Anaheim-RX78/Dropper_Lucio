@@ -75,7 +75,7 @@ void APinko::ChangeItem()
 
 void APinko::DropCurrentItem()
 {
-	Inventory->DropCurrentItem(1, GetActorLocation() + (GetActorForwardVector()* 100));
+	Inventory->DropCurrentItem(1, GetActorLocation() + (GetActorForwardVector() * 500));
 }
 
 void APinko::AddCoin()
