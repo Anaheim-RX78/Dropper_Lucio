@@ -54,14 +54,7 @@ FInventorySlot* UInventory::GetSlotByData(UInventoryItemData* Item)
 
 FString UInventory::SetNextSlot()
 {
-	if (CurrentItemIndex >= Items.Num() - 1)
-	{
-		CurrentItemIndex = 0;
-	}
-	else
-	{
-		CurrentItemIndex++;
-	}
+	CurrentItemIndex = (CurrentItemIndex + 1) % Items.Num();
 
 	return Items[CurrentItemIndex].ItemData->PrettyName; 
 }
