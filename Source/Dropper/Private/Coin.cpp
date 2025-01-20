@@ -33,12 +33,9 @@ void ACoin::Tick(float DeltaTime)
 
 void ACoin::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Red, "ACoin::OnOverlap");
 	if (APinko* Character = Cast<APinko>(OtherActor))
 	{
 		Character->AddCoin();
 		Destroy();
 	}
 }
-
-

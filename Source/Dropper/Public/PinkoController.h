@@ -38,6 +38,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* SprintAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* DropAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* ScrollInventoryAction;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
 	UInputMap* InputMap;
 	
@@ -58,5 +64,10 @@ protected:
 	
 	UFUNCTION()
 	void EndSprint(const FInputActionValue& Value);
+	
+	UFUNCTION()
+	void ScrollInventory(const FInputActionValue& Value);
+	UFUNCTION()
+	void DropItem(const FInputActionValue& Value);
 	
 };

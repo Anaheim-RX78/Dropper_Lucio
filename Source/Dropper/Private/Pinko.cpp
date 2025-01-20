@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Pinko.h"
 
 #include "DropperGameInstance.h"
@@ -8,10 +5,11 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
-// Sets default values
 APinko::APinko()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	Inventory = CreateDefaultSubobject<UInventory>("Inventory");
 	
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("CameraSpringArm");
 	SpringArm->SetupAttachment(RootComponent);
@@ -35,9 +33,6 @@ void APinko::BeginPlay()
 
 	UCapsuleComponent* Capsule = GetCapsuleComponent();
 	if (!Capsule) return;
-
-	
-
 }
 
 void APinko::Tick(float DeltaTime)
@@ -70,6 +65,17 @@ void APinko::StartSprinting()
 void APinko::StopSprinting()
 {
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+}
+
+void APinko::ChangeItem()
+{
+	FString Label = Inventory->SetNextSlot();
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("You selected: %s"), *Label));
+}
+
+void APinko::DropCurrentItem()
+{
+	Inventory->DropCurrentItem(1, GetActorLocation() + (GetActorForwardVector()* 100));
 }
 
 void APinko::AddCoin()
