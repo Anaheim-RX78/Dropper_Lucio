@@ -28,7 +28,16 @@ void UInventory::AddItem(UInventoryItemData* Item, int Amount)
 
 void UInventory::DropItem(int index, int Amount, FVector DropLocation)
 {
-	DropItem(Items[index].ItemData, Amount, DropLocation);
+	int RealDropAmount = FMath::Min(Items[index].Amount, Amount);
+	if (RealDropAmount <= 0)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("No %s available!"), *Items[index].ItemData->PrettyName));
+		return;
+	}
+	DropItem(Items[index].ItemData, RealDropAmount, DropLocation);
+	Items[index].Amount -= RealDropAmount;
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Dropped %s %d times, %d remaining"), *Items[index].ItemData->PrettyName, RealDropAmount, Items[index].Amount));
 }
 
 void UInventory::DropItem(UInventoryItemData* Item, int Amount, FVector DropLocation)
@@ -55,7 +64,6 @@ FInventorySlot* UInventory::GetSlotByData(UInventoryItemData* Item)
 FString UInventory::SetNextSlot()
 {
 	CurrentItemIndex = (CurrentItemIndex + 1) % Items.Num();
-
 	return Items[CurrentItemIndex].ItemData->PrettyName; 
 }
 

@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InventoryItemActor.h"
 #include "GameFramework/Actor.h"
 #include "Components/CapsuleComponent.h"
 #include "Coin.generated.h"
 
 UCLASS()
-class DROPPER_API ACoin : public AActor
+class DROPPER_API ACoin : public AInventoryItemActor
 {
 	GENERATED_BODY()
 	

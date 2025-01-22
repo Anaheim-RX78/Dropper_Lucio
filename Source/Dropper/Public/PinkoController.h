@@ -67,7 +67,10 @@ protected:
 	
 	UFUNCTION()
 	void ScrollInventory(const FInputActionValue& Value);
+	
 	UFUNCTION()
 	void DropItem(const FInputActionValue& Value);
-	
+
+	UFUNCTION()
+	void Interact(const FInputActionValue& Value);
 };

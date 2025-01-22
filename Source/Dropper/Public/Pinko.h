@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Inventory.h"
+#include "PlayerInteractionComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -39,6 +40,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	UInventory* Inventory;
 
+	UPROPERTY(EditAnywhere, Category= Interaction)
+	UPlayerInteractionComponent* InteractionComponent;
+
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	int ItemIndex;
 	
@@ -54,6 +58,8 @@ public:
 	void SetLookInput(const FVector2D& LookVector);
 	void StartSprinting();
 	void StopSprinting();
+	void Interact();
 	void ChangeItem();
 	void DropCurrentItem();
+	void AddItemToInventory(UInventoryItemData* Item, int Amount);
 };

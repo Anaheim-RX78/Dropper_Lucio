@@ -24,24 +24,24 @@ class DROPPER_API UInventory : public UActorComponent
 
 public:
 	UInventory();
-
+	
 	UFUNCTION(BlueprintCallable, Category="Inventory")
 	void AddItem(AInventoryItemActor* Item, int Amount);
-
+	
 	void AddItem(UInventoryItemData* Item, int Amount);
-
+	
 	UFUNCTION(BlueprintCallable, Category="Inventory")
 	void DropItem(int index, int Amount, FVector DropLocation);
-
+	
 	void DropItem(UInventoryItemData* Item, int Amount, FVector DropLocation);
-
+	
 	FInventorySlot* GetSlotByData(UInventoryItemData* Item);
-
+	
 	UPROPERTY(EditAnywhere, Category="Inventory")
 	int CurrentItemIndex = 0;
-
+	
 	FString SetNextSlot();
-
+	
 	void DropCurrentItem(int Amount, FVector DropLocation);
 	
 protected:

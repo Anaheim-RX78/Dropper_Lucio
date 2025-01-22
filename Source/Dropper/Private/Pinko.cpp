@@ -18,6 +18,9 @@ APinko::APinko()
 	
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
+
+	InteractionComponent = CreateDefaultSubobject<UPlayerInteractionComponent>(TEXT("Interaction Component"));
+	InteractionComponent->SetupAttachment(Camera);
 }
 
 void APinko::BeginPlay()
@@ -67,6 +70,15 @@ void APinko::StopSprinting()
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 }
 
+void APinko::Interact()
+{
+	if (InteractionComponent)
+	{
+		InteractionComponent->Interact();
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("You interacted with: %s"), *InteractionComponent->GetInteractableName()));
+	}
+}
+
 void APinko::ChangeItem()
 {
 	FString Label = Inventory->SetNextSlot();
@@ -76,6 +88,11 @@ void APinko::ChangeItem()
 void APinko::DropCurrentItem()
 {
 	Inventory->DropCurrentItem(1, GetActorLocation() + (GetActorForwardVector() * 500));
+}
+
+void APinko::AddItemToInventory(UInventoryItemData* Item, int Amount)
+{
+	Inventory->AddItem(Item, Amount);
 }
 
 void APinko::AddCoin()

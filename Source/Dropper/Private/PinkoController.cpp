@@ -31,6 +31,7 @@ void APinkoController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputMap->Actions["Sprint"], ETriggerEvent::Completed, this, &APinkoController::EndSprint);
 	EnhancedInputComponent->BindAction(InputMap->Actions["Scroll"], ETriggerEvent::Started, this, &APinkoController::ScrollInventory);
 	EnhancedInputComponent->BindAction(InputMap->Actions["Drop"], ETriggerEvent::Started, this, &APinkoController::DropItem);
+	EnhancedInputComponent->BindAction(InputMap->Actions["Interact"], ETriggerEvent::Started, this, &APinkoController::Interact);
 }
 
 void APinkoController::OnPossess(APawn* InPawn)
@@ -75,4 +76,9 @@ void APinkoController::ScrollInventory(const FInputActionValue& Value)
 void APinkoController::DropItem(const FInputActionValue& Value)
 {
 	Pinko->DropCurrentItem();
+}
+
+void APinkoController::Interact(const FInputActionValue& Value)
+{
+	Pinko->Interact();
 }
